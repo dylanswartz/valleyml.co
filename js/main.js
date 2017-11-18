@@ -15,15 +15,15 @@ $('.process-box').hover(function() {
 });
 
 /* ---- contact form ---- */
-$("#contactForm").validator().on("submit", function(event) {
-    if (event.isDefaultPrevented()) {
-        formError();
-        submitMSG(false, "Did you fill in the form properly?");
-    } else {
-        event.preventDefault();
-        submitForm();
-    }
-});
+// $("#contactForm").validator().on("submit", function(event) {
+//     if (event.isDefaultPrevented()) {
+//         formError();
+//         submitMSG(false, "Did you fill in the form properly?");
+//     } else {
+//         event.preventDefault();
+//         submitForm();
+//     }
+// });
 function submitForm() {
     // Initiate Variables With Form Content
     var name = $("#name").val();
@@ -106,7 +106,7 @@ $(document).ready(function() {
     });
     $('.scroll-top').on('click', function(event) {
         event.preventDefault();
-        $('html, body').animate({scrollTop:0}, 1200);       
+        $('html, body').animate({scrollTop:0}, 1200);
     });
 });
 
@@ -168,10 +168,10 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 });
 
 /* ---- rotater text ---- */
-var current = 1; 
-var height = jQuery('.ticker').height(); 
-var numberDivs = jQuery('.ticker').children().length; 
-var first = jQuery('.ticker h1:nth-child(1)'); 
+var current = 1;
+var height = jQuery('.ticker').height();
+var numberDivs = jQuery('.ticker').children().length;
+var first = jQuery('.ticker h1:nth-child(1)');
 setInterval(function() {
     var number = current * -height;
     first.css('margin-top', number + 'px');
