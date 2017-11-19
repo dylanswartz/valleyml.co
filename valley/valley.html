@@ -1,0 +1,505 @@
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel = 'stylesheet' href = 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css'>
+<script src = 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js'></script>
+<link href = 'https://fonts.googleapis.com/icon?family=Material+Icons' rel = 'stylesheet'>
+
+<script src= 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500" rel="stylesheet">
+
+
+<script src="https://use.fontawesome.com/c6a93d83f8.js"></script>
+<script src="C:/Users/nathancyan/Desktop/New folder (3)/HTML/valley/leader-line.min.js"></script>
+
+
+<style>
+    body {
+        font-family: "Segoe UI";
+    }
+
+    .block-name {
+        border: none;
+        outline:none;
+        height: 20px !important;
+
+        font-weight:500;
+        color: rgb(100, 100, 255);
+
+        z-index:2;
+    }
+
+    .block {
+        width: fit-content;
+        padding: 8 12 9 10;
+        border-radius: 30px;
+        background-color: rgb(255, 100, 100);
+
+        z-index:1;
+    }
+
+    .connector-dot {
+        width:15px;
+        height:15px;
+        border-radius:50%;
+        background-color: rgba(0, 0, 0, 0);
+        border-style:solid;
+        border-width: 1px;
+
+        z-index:0;
+
+    }
+
+    .point {
+        cursor:pointer;
+    }
+
+    .absolute {
+        position:absolute;
+
+    }
+</style>
+
+<html>
+    <body style = 'position:absolute; height:100%; width:100%'>
+        <div id = 'item-selection' style = 'position:absolute; top:0; left:0; width:200px; background: rgb(240, 240, 240); padding-left:30px; padding-top:50px; height:100%; overflow:scroll'>
+            <!--<b>Neural Network</b>
+            <ul style = 'padding-left:20px;'>
+                <li id = 'matmul' class = 'point'><b>?</b> Matrix Multiply</li>
+                <li id = 'conv' class = 'point'><b>?</b> Convolution</li>
+                <li id = 'dialated-conv' class = 'point'><b>?</b> Dilated Convolution</li>
+                <li id = 'pool' class = 'point'><b>?</b> Pool</li>
+                <li id = 'unpool' class = 'point'><b>?</b> Unpool</li>
+                <li id = 'sigmoid' class = 'point'><b>?</b> Sigmoid</li>
+                <li id = 'tanh' class = 'point'><b>?</b> Tanh</li>
+                <li id = 'relu' class = 'point'><b>?</b> ReLU</li>
+                <li id = 'prelu' class = 'point'><b>?</b> PReLU</li>
+                <li id = 'elu' class = 'point'><b>?</b> ELU</li>
+                <li id = 'softplus' class = 'point'><b>?</b> Softplus</li>
+                <li id = 'gaussian' class = 'point'><b>?</b> Gaussian</li>
+                <li id = 'custom-activation' class = 'point'><b>?</b> Custom Activation</li>
+            </ul>
+
+            <br/>-->
+
+
+            <b>Matrix</b>
+            <ul style = 'padding-left:20px;'>
+                <a href = '#modal1' class = 'modal-trigger'><b id = 'show-modal'>?</b></a><span id = 'matmul' class = 'point'> Matrix Multiply</span>
+                <li id = 'transpose' class = 'point'><b>?</b> Transpose</li>
+                <li id = 'reshape' class = 'point'><b>?</b> Reshape</li>
+                <li id = 'slice' class = 'point'><b>?</b> Slice</li>
+                <li id = 'concatenate' class = 'point'><b>?</b> Concatenate</li>
+                <li id = 'flatten' class = 'point'><b>?</b> Flatten</li>
+
+            </ul>
+
+            <b>Activations</b>
+            <ul style = 'padding-left:20px;'>
+                <li id = 'sigmoid' class = 'point'><b>?</b> Sigmoid</li>
+                <li id = 'tanh' class = 'point'><b>?</b> Tanh</li>
+                <li id = 'relu' class = 'point'><b>?</b> ReLU</li>
+                <li id = 'prelu' class = 'point'><b>?</b> PReLU</li>
+                <li id = 'elu' class = 'point'><b>?</b> ELU</li>
+                <li id = 'softmax' class = 'point'><b>?</b> Softmax</li>
+                <li id = 'softplus' class = 'point'><b>?</b> Softplus</li>
+                <li id = 'gaussian' class = 'point'><b>?</b> Gaussian</li>
+                <li id = 'custom-activation' class = 'point'><b>?</b> Custom Activation</li>
+            </ul>
+
+            <b>Parameters</b>
+            <ul style = 'padding-left:20px;'>
+                <li id = 'variable' class = 'point'><b>?</b> variable</li>
+                <li id = 'gradient' class = 'point'><b>?</b> gradient</li>
+            </ul>
+
+            <b>Input/Output</b>
+            <ul style = 'padding-left:20px;'>
+                <li id = 'input' class = 'point'><b>?</b> input</li>
+                <li id = 'target' class = 'point'><b>?</b> target</li>
+
+                <li id = 'output' class = 'point'><b>?</b> output</li>
+            </ul>
+
+            <b>Loss Functions</b>
+            <ul style = 'padding-left:20px;'>
+                <li id = 'mse' class = 'point'><b>?</b> Mean Squared Error</li>
+                <li id = 'xentropy' class = 'point'><b>?</b> Categorical Crossentropy</li>
+            </ul>
+
+            <b>Optimizers</b>
+            <ul style = 'padding-left:20px;'>
+                <li id = 'sgd' class = 'point'><b>?</b> Stochastic Gradient Descent</li>
+                <li id = 'rmsrop' class = 'point'><b>?</b> RMSProp</li>
+                <li id = 'adam' class = 'point'><b>?</b> ADAM</li>
+            </ul>
+
+            <b>Regularization</b>
+            <ul style = 'padding-left:20px;'>
+                <li id = 'l1' class = 'point'><b>?</b> L1 regularization</li>
+                <li id = 'l2' class = 'point'><b>?</b> L2 regularization</li>
+            </ul>
+
+            <br/>
+            <b>Broadcasting</b>
+            <ul style = 'padding-left:20px;'>
+            <li id = 'broadcast-add' class = 'point'><b>?</b> Broadcast</li>
+            <li id = 'broadcast-remove' class = 'point'><b>?</b> Unbroadcast</li>
+        </div>
+        <div id = 'workspace' style = 'position:absolute; top:20; left:200px; width:calc(100% - 200px); height:100%'>
+
+        </div>
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h4>Matmul</h4>
+              <p>A matrix multiplication between two matrices. If the inputs are tensors (matrices of dimensions greater than 3), the matrix multiplies will be repeated across the first dimension. See more about matrix multiplication <a href = 'en.wikipedia.org/wiki/matrix_multiplication'>here</a></p>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+            </div>
+          </div>
+
+
+        <svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+     </svg>
+    </body>
+</html>
+
+
+<script>
+    $(document).ready(function(){
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+    });
+
+
+    var colors = {
+        "convolution" : "rgb(100, 150, 100)",
+        "matrix" : "rgb(230, 100, 100)",
+        "broadcasting" : "rgb(150, 100, 150)",
+        "loss" : "rgb(200, 200, 150)",
+        "optimizer" : "rgb(230, 160, 100)",
+        "misc" : "rgb(234, 140, 110)",
+        "regularization" : "rgb(110, 130, 150)",
+        "parameters" : "rgb(160, 150, 150)",
+        "activations" : "rgb(210, 250, 200)"
+    };
+
+    var types = {
+        "matrix" : ['matmul', 'transpose', 'reshape', 'slice', 'concatenate', 'flatten'],
+        "broadcasting" : ["broadcast-add", "broadcast-remove"],
+        "loss" : ["xentropy", "mse"],
+        "optimizer" : ["sgd", "rmsprop", "adam"],
+        "regularization" : ['l1', 'l2'],
+        "parameters" : ["variable", "gradient"],
+        "misc" : ['input', 'output', 'target'],
+        "activations" :['relu', 'prelu', 'elu', 'softmax', 'softplus', 'gaussian', 'custom-activation'],
+        "convolution" : ['conv', 'dialated-conv'],
+    }
+
+    var total_blocks = 0;
+
+    function colorFactory(color, type, name){
+        return function(e){createBlock('b-' + total_blocks, color, type, name, [e.pageX, e.pageY]);        total_blocks++;
+;
+        };
+    }
+
+    for (var type in types){
+        for (var block = 0; block < types[type].length; block++){
+            $('#' + types[type][block]).click(colorFactory(colors[type], types[type][block], "genericname"));
+        }
+    }
+
+    var events = {'dragging' : undefined};
+    var dot_to_line = {};
+    var connections = {};
+    var connections_that_belong_to = {};
+
+    function createConnection(id){
+        var connector_init = document.createElement("DIV");
+        connector_init.classList.add("connector-dot");
+        connector_init.classList.add("draggable");
+        connector_init.classList.add("following");
+        connector_init.classList.add("absolute");
+
+        var len = connections_that_belong_to[id].length;
+
+        connector_init.id = id + '-connector' + len;
+
+        $('#' + id + '-wrapper').append(connector_init);
+
+        if (connections_that_belong_to[id] == undefined){
+            connections_that_belong_to[id] = [];
+        }
+
+        $(".draggable").draggable();
+
+        connections_that_belong_to[id].push(connector_init.id);
+
+        var myLine = new LeaderLine(
+            document.getElementById(id),
+            document.getElementById(id + '-connector' + len)
+        );
+
+        dot_to_line[id + '-connector' + len] = myLine;
+
+        myLine.setOptions({size: 1});
+
+        connector_init.style['top'] = $('#' + id).position()['top'] - 20;
+        connector_init.style['left'] = $('#' + id).position()['left'] + $('#' + id).width()/2 - 7 +  'px';
+
+        myLine.position();
+
+        connector_init.addEventListener("mousedown", function(){
+            var connector = document.getElementById(id + '-connector' + len);
+            events['dragging']= this.id;
+            connections[this.id] = undefined;
+
+            connector.classList.remove("following");
+            createConnection(id);
+        });
+
+        connector_init.addEventListener("mouseup", function(){
+            if (events['dragging'] == this.id){
+                console.log(connections);
+                if (connections[events['dragging']] != undefined){
+                        // set position
+                        var element = document.getElementById(events['dragging']);
+                        element.style['top'] = $('#' + connections[events['dragging']]).position()['top'] + $('#' + connections[events['dragging']]).height() ;
+                        element.style['left'] = $('#' + connections[events['dragging']]).position()['left'] + $('#' + connections[events['dragging']]).width()/2 - 7 +  'px';
+                }
+
+                events['dragging'] = undefined;
+            }
+        });
+
+        connector_init.addEventListener("mousemove", function(){
+            myLine.position();
+        })
+
+    }
+
+    //-----------------------------
+
+    function createBlock(id, color, type, name, init_position){
+        var wrapper = document.createElement("DIV");
+        wrapper.classList.add('block-wrapper');
+        wrapper.id = id + '-wrapper';
+
+        var block = document.createElement("DIV");
+        block.style['background-color'] = color;
+        block.classList.add("block");
+        block.classList.add("draggable");
+        block.id = id;
+        block.innerHTML = type + " :: " + "<div contentEditable = true id = '" + id + "-name' class = 'block-name' type = 'text' style = 'display:inline-block'>" + name + "</div>";
+
+
+        wrapper.appendChild(block);
+        document.getElementById("workspace").appendChild(wrapper);
+
+        $('.draggable').draggable();
+        $('#' + id).draggable();
+
+        var name = $('#' + id + '-name');
+
+        var connector_init = document.createElement("DIV");
+        connector_init.classList.add("connector-dot");
+        connector_init.classList.add("draggable");
+        connector_init.classList.add("following");
+        connector_init.classList.add("absolute");
+        connector_init.id = id + '-connector' + '0';
+
+        $('#' + id + '-wrapper').append(connector_init);
+
+        if (connections_that_belong_to[id] == undefined){
+            connections_that_belong_to[id] = [];
+        }
+
+        connections_that_belong_to[id].push(connector_init.id);
+
+        var myLine = new LeaderLine(
+            document.getElementById(id),
+            document.getElementById(id + '-connector' + '0')
+        );
+
+        dot_to_line[id + '-connector' + '0'] = myLine;
+
+        myLine.setOptions({size: 1});
+
+        connector_init.style['top'] = $('#' + id).position()['top'] - 20;
+        connector_init.style['left'] = $('#' + id).position()['left'] + $('#' + id).width()/2 - 7 +  'px';
+
+        myLine.position();
+
+        $('#' + id).mousemove(function(){
+            //console.log(dot_to_line)
+            console.log(connections_that_belong_to);
+            for (var k in connections_that_belong_to[id]){
+                var connector = document.getElementById(connections_that_belong_to[id][k]);
+                console.log(connector);
+                if (connector.classList.contains('following')){
+                    connector.style['top'] = $(this).position()['top'] - 20;
+                    connector.style['left'] = $(this).position()['left'] + $(this).width()/2 - 7 +  'px';
+
+            }
+            dot_to_line[connections_that_belong_to[id][k]].position();
+
+        }
+
+            if (events['dragging'] != undefined){
+                var element = document.getElementById(events['dragging']);
+                if (element.classList.contains("connector-dot")){
+                    element.style['top'] = $(this).position()['top'] + $(this).height() ;
+                    element.style['left'] = $(this).position()['left'] + $(this).width()/2 - 7 +  'px';
+                    dot_to_line[events['dragging']].position();
+                }
+            }
+
+            for (var connector in connections){
+                if (connections[connector] == $(this).attr('id')){
+                    var element = document.getElementById(connector);
+
+                    element.style['top'] = $(this).position()['top'] + $(this).height() ;
+                    element.style['left'] = $(this).position()['left'] + $(this).width()/2 - 7 +  'px';
+                    dot_to_line[connector].position();
+                }
+            }
+
+            myLine.position();
+        });
+
+        $('#' + id).mouseover(function(){
+            //console.log(events['dragging']);
+            console.log("mouseover2");
+            if (events['dragging']!= undefined){
+                var element = document.getElementById(events['dragging']);
+
+                if (element.classList.contains("connector-dot")){
+                    element.style['top'] = $(this).position()['top'] + $(this).height() ;
+                    element.style['left'] = $(this).position()['left'] + $(this).width()/2 - 7 +  'px';
+                    dot_to_line[events['dragging']].position();
+
+                    connections[events['dragging']] = $(this).attr('id');
+                }
+            }
+        });
+
+        $('#' + id).mouseout(function(){
+            if (events['dragging'] != undefined){
+                var element = document.getElementById(events['dragging']);
+
+                if (element.classList.contains("connector-dot")){
+                    connections[events['dragging']] = undefined;
+                }
+            }
+        })
+
+
+        $('.draggable').draggable();
+
+        connector_init.addEventListener("mousedown", function(){
+            var connector = document.getElementById(id + '-connector' + '0');
+            events['dragging']= this.id;
+            connections[this.id] = undefined;
+
+            connector.classList.remove("following");
+            createConnection(id);
+        });
+
+        connector_init.addEventListener("mouseup", function(){
+            if (events['dragging'] == this.id){
+                console.log(connections);
+                if (connections[events['dragging']] != undefined){
+                        // set position
+                        var element = document.getElementById(events['dragging']);
+                        element.style['top'] = $('#' + connections[events['dragging']]).position()['top'] + $('#' + connections[events['dragging']]).height() ;
+                        element.style['left'] = $('#' + connections[events['dragging']]).position()['left'] + $('#' + connections[events['dragging']]).width()/2 - 7 +  'px';
+                }
+
+                events['dragging'] = undefined;
+            }
+        });
+
+        $(document).mouseup(function(){
+            if (events['dragging'] != undefined){
+                console.log(connections);
+                if (connections[events['dragging']] != undefined){
+                        // set position
+                        var element = document.getElementById(events['dragging']);
+                        element.style['top'] = $('#' + connections[events['dragging']]).position()['top'] + $('#' + connections[events['dragging']]).height() ;
+                        element.style['left'] = $('#' + connections[events['dragging']]).position()['left'] + $('#' + connections[events['dragging']]).width()/2 - 7 +  'px';
+                        element.style['background-color'] = 'rgb(100, 230, 100)';
+                }
+
+                events['dragging'] = undefined;
+            }
+
+            events['dragging'] = undefined;
+        })
+
+        connector_init.addEventListener("mousemove", function(){
+            myLine.position();
+        })
+
+        name.keydown(function(e){
+            if ((e.keyCode | e.charCode) != 13){
+                var c = String.fromCharCode(e.keyCode|e.charCode);
+                // create hidden span
+                var span = document.createElement("SPAN");
+                span.innerHTML = c;
+                span.style.color = 'rgba(0, 0, 0 ,0)';
+                //document.body.appendChild(span);
+
+                var width = span.offsetWidth;
+                console.log(name.width());
+                name.get(0).style.width = name.width() + width + "px !important";
+
+                var connector = document.getElementById(id + '-connector' + '0');
+
+                if (connector.classList.contains('following')){
+                    connector.style['top'] = $(this).parent().position()['top'] - 20;
+                    connector.style['left'] = $(this).parent().position()['left'] + $(this).parent().width()/2 - 7 +  'px';
+
+                }
+
+                myLine.position();
+
+
+            }else{
+                e.preventDefault();
+            }
+
+        });
+
+        name.keyup(function(e){
+            if (connector_init.classList.contains('following')){
+                var connector = document.getElementById(id + '-connector' + '0');
+
+                connector.style['top'] = $(this).parent().position()['top'] - 20;
+                connector.style['left'] = $(this).parent().position()['left'] + $(this).parent().width()/2 - 7 +  'px';
+                myLine.position();
+
+            }
+
+            myLine.position();
+
+        });
+
+        name.click(function(e){
+            e.preventDefault();
+            name.focus();
+        })
+
+        name.blur(function(){
+            if (name.html() == ''){
+                name.html('blank');
+            }
+        });
+    }
+
+</script>
